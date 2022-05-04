@@ -1,0 +1,336 @@
+username: root
+password: FVndj=cG
+
+shell linux: bash
+bash scripting 
+
+cat /etc/passwd (per vedere utenti)
+cat /etc/shadow (per vedere password)
+
+cp -r /usr/tmp/dir1 .
+
+ls -l					 //permette di vedere  i permessi per capire dove creare la directory  
+
+/* /root 	home directory di root non visibile dagli altri utenti
+   / 		radice dell’albero	
+*/
+
+useradd -md /tmp pippo 	//Se non esiste crea home directory tmp, e lì si crea utente pippo
+passwd pippo
+
+usermod -g pippo pluto   	//mettere pluto nel gruppo pippo: usermod -g nome gruppo - nome utente
+
+mkdir dir1 				//crea directory
+chown pippo:pippo dir1	//cambia owner da root a pippo 
+
+chmod 447 dir1 		//cambia permessi
+
+mv /root/dir1 /usr/tmp/dir1  //source destination 
+
+Vedere i seguenti comandi:
+awk
+grep
+sed
+find 
+xargs 
+
+RUN LEVEL - livelli di accensione
+init X per passare al run level X
+init 
+
+0 - shutdown
+1 - singlemode -> avvia linux in root senza chiedere password 
+2 - (non usata) da cli senza network
+3 - cli senza gui con network
+4 - (non usata)
+5 - GUI con network
+6 - reboot
+7 - 
+
+systemctl list-unit-files per vedere i servizi di sistema in esecuzione
+systemctl enable/disable al boot
+systemctl start/stop ha effetto al momento del comando
+
+rc-local.service è un servizio sta morendo, viene dato vuoto per far partire eventuali script
+
+creare un nuovo servizio con systemd
+
+formattare chiavetta in xfs, montatela in una directory
+https://www.xmodulo.com/create-mount-xfs-file-system-linux.html
+   fdisk /dev/sdX per creare le partizioni      ---- Meglio usare parted
+   mkfs.xfs -f /sdX per formattare la partizione in xfs
+   mount -t xfs /sdXN /mountpoint per montarle
+
+ps faxw per un dettaglio maggiore dei processi attivi
+
+https://www.linode.com/docs/guides/start-service-at-boot/
+
+creare partizione LVM
+   aggiungere disco 
+   partizione in lvm - pvcreate, vgcreate, lvcreate
+   make file system
+   add line /dev/mapper/vg00-logicalVolume00 /home xfs defaults 0 0 to /etc/fstab
+   extend lvm partition
+https://www.tecmint.com/manage-and-create-lvm-parition-using-vgcreate-lvcreate-and-lvextend/
+
+
+Generate configure:
+
+    ./buildconf
+
+Configure your build. `--enable-debug` is recommended for development, see
+`./configure --help` for a full list of options.
+
+    # For development
+    ./configure --enable-debug
+    # For production
+    ./configure
+
+Build PHP. To speed up the build, specify the maximum number of jobs using `-j`:
+
+    make -j4
+
+The number of jobs should usually match the number of available cores, which
+can be determined using `nproc`.
+
+## Testing PHP source code
+
+PHP ships with an extensive test suite, the command `make test` is used after
+successful compilation of the sources to run this test suite.
+
+It is possible to run tests using multiple cores by setting `-jN` in
+`TEST_PHP_ARGS`:
+
+    make TEST_PHP_ARGS=-j4 test
+
+Shall run `make test` with a maximum of 4 concurrent jobs: Generally the maximum
+number of jobs should not exceed the number of cores available.
+
+The [qa.php.net](https://qa.php.net) site provides more detailed info about
+testing and quality assurance.
+
+## Installing PHP built from source
+
+After a successful build (and test), PHP may be installed with:
+
+    make install
+
+Depending on your permissions and prefix, `make install` may need super user
+permissions.
+
+
+crontab -e to edit, -l to list 
+*/5 * * * * scriptname (/usr/local/bin/everyfiveminutes)
+
+
+255.255.255.240
+/28
+151.14.15.0-15
+da 151.14.15.1 
+a  151.14.15.14
+
+xxxx0000
+xxxx1111
+00008+4+2+1 = 15 -1 + 14
+
+5.240.241.18/28 -    16 indirizzi   255.255.255.240
+5.240.241.16 (rete)
+5.240.241.17 (primo buono)
+5.240.241.30 (ultimo buono)
+5.240.241.31 (broadcast)
+
+
+100.200.100.180/29 -  8 indirizzi   255.255.255.248
+100.200.100.176 (rete)
+100.200.100.177 (primo buono)
+100.200.100.182 (ultimo buono)
+100.200.100.183 (broadcast)
+
+
+200.100.200.125/27 - 32 indirizzi   255.255.255.224
+200.100.200.96  (rete)
+200.100.200.97  (primo buono)
+200.100.200.126 (ultimo buono)
+200.100.200.127 (broadcast)
+
+
+cat /etc/resolv.conf
+netstat -rn per mostrare la tabella di instradamento
+https://linuxhint.com/change-the-default-interface-in-linux/
+https://www.itzgeek.com/how-tos/linux/centos-how-tos/how-to-configure-static-ip-address-in-centos-7-rhel-7-fedora-26.html
+https://www.cyberciti.biz/faq/howto-setting-rhel7-centos-7-static-ip-configuration/
+
+man in the middle
+spoofing
+
+firewalld
+installare e configurare i servizi server ftp, telnetd, squid (targz), mysql e httpd(apache)
+
+vsftp https://www.systaskliwi.com/installazione-un-server-ftp-vsftp-centos-7/
+
+scp - ssh to copy files 
+    scp [OPTION -P 3022] [user@]SRC_HOST:]file1 [user@]DEST_HOST:]file2
+    https://linuxize.com/post/how-to-use-scp-command-to-securely-transfer-files/
+
+ssh config file https://linuxize.com/post/using-the-ssh-config-file/
+
+telnetd
+https://www.thegeekdiary.com/centos-rhel-7-how-to-install-and-configure-telnet/
+    telnet -l testftpuser localhost 3023
+
+mysql root: MNkjoi0) port 30306 on localhost
+create user 'sqluser' identified by 'MNkjoi0)';
+grant permissions for a remote user
+
+httpd
+https://www.digitalocean.com/community/tutorials/how-to-install-the-apache-web-server-on-centos-7
+
+https://linuxize.com/post/how-to-add-directory-to-path-in-linux/
+
+https://midnight-commander.org/wiki/WikiStart
+arp spoofing https://www.bartolomeoalberico.it/mitm-attack-in-kali-linux-utilizziamo-arp-spoofing-arp-poisoning/ 
+
+log4j vuln https://www.csoonline.com/article/3645431/the-apache-log4j-vulnerabilities-a-timeline.html
+mac spoofing 
+
+add kali tools https://www.unixmen.com/install-kali-linux-tools-on-ubuntu-and-centos/
+
+
+dhcp server https://www.thegeeksearch.com/how-to-configure-dhcp-server-in-centos-rhel-7/
+subnet 10.0.0.0 netmask 255.255.255.0 {
+  range 10.0.0.10 10.0.0.99;
+  option domain-name-servers 10.0.0.2;
+  option subnet-mask 255.255.255.0;
+  option routers 10.0.0.1;
+  default-lease-time 600;
+  max-lease-time 7200;
+}
+
+# ignora questa subnet
+subnet 10.0.2.0 netmask 255.255.255.0 {
+}
+
+caching and primary dns server
+https://opensource.com/article/17/4/build-your-own-name-server 
+---- configuration /etc/named.conf
+options {
+        listen-on port 53 { 127.0.0.1; 10.0.0.2; };
+//      listen-on-v6 port 53 { ::1; };
+//      forwarders { 8.8.8.8; 8.8.4.4; };
+        directory       "/var/named";
+        dump-file       "/var/named/data/cache_dump.db";
+        statistics-file "/var/named/data/named_stats.txt";
+        memstatistics-file "/var/named/data/named_mem_stats.txt";
+        allow-query     { localhost; 10.0.0.0/24; };
+        recursion yes;
+
+
+        dnssec-enable yes;
+        dnssec-validation yes;
+        dnssec-lookaside auto;
+
+
+        /* Path to ISC DLV key */
+        bindkeys-file "/etc/named.iscdlv.key";
+
+
+        managed-keys-directory "/var/named/dynamic";
+};
+logging {
+        channel default_debug {
+                file "data/named.run";
+                severity dynamic;
+        };
+};
+zone "." IN {
+        type hint;
+        file "named.ca";
+};
+include "/etc/named.rfc1912.zones";
+include "/etc/named.root.key";
+
+firewall-cmd --add-port=53/udp --permanent
+
+
+iptables - firewall a stati
+
+selinux disable
+
+permette solo siti web
+
+ifdown enp0s8
+
+
+target: default
+icmp-block-inversion: no
+interfaces: enp0s3 enp0s8
+sources: 
+services: dhcpv6-client ssh
+ports: 53/udp
+protocols: 
+masquerade: no
+forward-ports: 
+source-ports: 
+icmp-blocks: 
+rich rules: 
+
+proxy
+    printf "proxytest:$(openssl passwd -crypt 'mnkjoi09')\n"
+    https://stackoverflow.com/questions/8943381/how-to-block-website-using-squid-server
+    https://noviello.it/come-installare-e-configurare-squid-proxy-su-centos-7/
+
+
+linux ftp passive mode iptables configuration
+
+fare funzionare url filtering per categorie con squid
+    easy con squid
+    hard con database
+        all'epoca era squid-guard che gestiva le blacklist
+
+fortigate
+sophosi
+
+entrare via ssh da esterni alla rete
+
+iptables -t nat -A PREROUTING -i $IE -s $EXT -d $FWEXTIP -j DNAT --to-source $IPCLIENT
+
+pfsense per url filtering
+
+usare un reverse proxy per esporre il sito web con regole mod evasive (server WAF): apache, nginx, haproxy, varnish
+
+cd /usr/local/src/
+git clone --depth 1 -b v3/master --single-branch https://github.com/SpiderLabs/ModSecurity
+cd ModSecurity/
+git submodule init
+git submodule update
+./build.sh
+./configure
+make
+make install
+
+cd /usr/local/src
+git clone --depth 1 https://github.com/SpiderLabs/ModSecurity-nginx.git
+
+cd /usr/local/src
+wget https://github.com/coreruleset/coreruleset/archive/v3.3.2.tar.gz
+tar xvf v3.3.2.tar.gz
+mv coreruleset-3.3.2 /etc/nginx
+cd /etc/nginx/coreruleset-3.3.2
+cp crs-setup.conf.example crs-setup.conf
+
+
+realizzazione VPN con auteticazione tramite certificato, user pw, importanza dell'OTP
+https://linuxize.com/post/how-to-set-up-an-openvpn-server-on-centos-7/
+easyrsa build pass per utenti
+
+L2 VPN (MPLS i provider connettono a L2 varie sedi)
+
+VPN OTP
+Settare correttamente l'ora https://www.tecmint.com/set-time-timezone-and-synchronize-time-using-timedatectl-command/
+Guida https://nethack.ch/2016/12/08/setup-an-openvpn-server-with-certificate-and-two-factor-authentication-on-centos-7/ 
+Seconda guida https://velenux.wordpress.com/2019/03/12/openvpn-with-google-2-factor-authentication-on-centos-7/ 
+aggiungere auth-user-pass nell'.ovpn
+https://arashmilani.com/post?id=53
+
+VPN SSL (un tempo c'era il demone adito, o Apache)
+
