@@ -1,0 +1,16 @@
+https://blog.devolutions.net/2017/04/10-steps-to-secure-open-ssh/
+https://www.ssh.com/academy/ssh/sshd_config
+
+https://www.tenable.com/plugins/nessus/55523/
+https://pentestlab.blog/2012/11/08/vsftpd-exploitation/
+
+https://pkgs.org/download/httpd-filesystem
+
+https://www.snort.org/#documents
+
+https://doc.crowdsec.net/docs/getting_started/install_crowdsec/
+
+https://www.xmodulo.com/create-site-to-site-ipsec-vpn-tunnel-openswan-linux.html
+
+pkill -9 -t pts/N, where N is the PTS number of the user session you want to kill
+ssh on port 65022 to stop script scans and logins 
