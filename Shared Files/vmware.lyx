@@ -174,22 +174,6 @@ firewall
 \end_layout
 
 \begin_layout Standard
-
-\series bold
-username:
-\series default
- root
-\end_layout
-
-\begin_layout Standard
-
-\series bold
-passwd: 
-\series default
-mnkjoi09
-\end_layout
-
-\begin_layout Standard
 Le risorse assegnate alla vm sono:
 \end_layout
 
@@ -419,6 +403,10 @@ Samba Version 4.10.16
 
 \begin_deeper
 \begin_layout Itemize
+Guida: https://linuxize.com/post/how-to-install-and-configure-samba-on-centos-7/
+\end_layout
+
+\begin_layout Itemize
 TCP porte 139, 445 
 \end_layout
 
@@ -442,6 +430,102 @@ utente: sadmin
 passwd: ringostarr
 \end_layout
 
+\end_deeper
+\begin_layout Subsection
+COS'È SNORT
+\end_layout
+
+\begin_layout Standard
+Snort è un software di rilevazione e prevenzione delle intrusioni.
+ I sistemi di rilevazione delle intrusioni (Intrusion Detection Systems,
+ o IDS) individuano pacchetti sospetti, li registrano e ne segnalano la
+ presenza all’amministratore di rete.
+ La loro naturale evoluzione consiste nei sistemi di prevenzione delle intrusion
+i (Intrusion Prevention Systems, o IPS), che intraprendono azioni attive
+ sui pacchetti sospetti eliminandoli, resettando connessioni e/o bloccando
+ interamente il traffico proveniente da determinati indirizzi IP.
+\end_layout
+
+\begin_layout Subsection
+INSTALLAZIONE DI SNORT 
+\end_layout
+
+\begin_layout Standard
+Snort è stato installato da sorgente:
+\end_layout
+
+\begin_layout Itemize
+snort-2.9.19.tar.gz 
+\end_layout
+
+\begin_layout Itemize
+daq-2.0.7.tar.gz (data acquisition library)
+\end_layout
+
+\begin_layout Subsection
+CONFIGURAZIONE SNORT 
+\end_layout
+
+\begin_layout Standard
+Guida:
+\end_layout
+
+\begin_layout Standard
+
+\series bold
+https://upcloud.com/community/tutorials/installing-snort-on-centos/
+\end_layout
+
+\begin_layout Itemize
+Bisogna modificare il file di configurazione /etc/snort/snort.conf.
+ L'ip da proteggere è quello della scheda che si affaccia sulla rete telecom.
+ Per fare questo è sufficiente specificare l'indirizzo nel file di configurazion
+e: 
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+
+\series bold
+ipvar HOME_NET 10.222.111.2/32
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+Il primo test di detection consiste nel rilevare tutti i tentativi di connession
+e ssh.
+ Per fare questo bisogna aggiungere una regola nel file /etc/snort/rules/local.ru
+les.
+ La regola è: 
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+
+\series bold
+alert tcp any any -> $HOME_NET 22 (msg:"ssh test"; sid:10000001; rev:001;)
+\series default
+ 
+\end_layout
+
+\begin_layout Standard
+Se un host esterno cerca di connettersi tramite ssh, il tentativo viene
+ rilevato da snort.
+ È possibile vedere i log digitando il comando:
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+snort -A console -i ens160 -u snort -g snort -c /etc/snort/snort.conf
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+Nota: ens160 è l'interfaccia che corrisponde all'ip 10.222.111.2
+\end_layout
+
+\end_deeper
 \end_deeper
 \end_body
 \end_document
