@@ -118,8 +118,8 @@ COS'È VMWARE E VSPHERE
 \begin_layout Standard
 VMware è un software che permette di creare macchine virtuali, può essere
  utilizzato per creare un ambiente per effettuare test di sicurezza.
- VSphere Client è uno strumento per la gestione dell'intera struttura virtuale
- tramite browser.
+ L'intera struttura virtuale viene gestita tramite browser grazie allo strumento
+ VSphere Client.
  Per questa simulazione la versione VMware utilizzata è la 5.5.
 \end_layout
 
@@ -133,7 +133,7 @@ La rete ha questa struttura:
 
 \begin_layout Standard
 \begin_inset Graphics
-	filename /Users/allegrastrippoli/Library/CloudStorage/OneDrive-UniversitadegliStudiRomaTre/II semestre/tirocinio/graphics latex/NetworkDiagram.drawio.pdf
+	filename graphics latex/NetworkDiagram.drawio.pdf
 	scale 30
 
 \end_inset
