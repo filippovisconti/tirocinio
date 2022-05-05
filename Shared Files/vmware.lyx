@@ -447,7 +447,7 @@ i (Intrusion Prevention Systems, o IPS), che intraprendono azioni attive
 \end_layout
 
 \begin_layout Subsection
-INSTALLAZIONE DI SNORT 
+INSTALLAZIONE E CONFIGURAZIONE 
 \end_layout
 
 \begin_layout Standard
@@ -462,12 +462,17 @@ snort-2.9.19.tar.gz
 daq-2.0.7.tar.gz (data acquisition library)
 \end_layout
 
-\begin_layout Subsection
-CONFIGURAZIONE SNORT 
+\begin_layout Standard
+Per configurarlo bisogna modificare il file 
+\series bold
+/etc/snort/snort.conf.
+ 
 \end_layout
 
 \begin_layout Standard
-Guida:
+La guida è disponibile tramite il link:
+\series bold
+ 
 \end_layout
 
 \begin_layout Standard
@@ -476,30 +481,31 @@ Guida:
 https://upcloud.com/community/tutorials/installing-snort-on-centos/
 \end_layout
 
-\begin_layout Itemize
-Bisogna modificare il file di configurazione /etc/snort/snort.conf.
- L'ip da proteggere è quello della scheda che si affaccia sulla rete telecom.
- Per fare questo è sufficiente specificare l'indirizzo nel file di configurazion
-e: 
+\begin_layout Standard
+L'indirizzo da proteggere è quello della scheda che si affaccia sulla rete
+ esterna e che corrisponde all'ip 10.222.111.2.
+ 
 \end_layout
 
-\begin_deeper
-\begin_layout Itemize
+\begin_layout Subsection
+TEST PRELIMINARE 
+\end_layout
 
+\begin_layout Standard
+Un test preliminare è stato rilevare tutti i tentativi di connessione sulla
+ porta 22.
+ Bisogna aggiungere una regola nel file 
 \series bold
-ipvar HOME_NET 10.222.111.2/32
+/etc/snort/rules/local.rules
+\series default
+.
+ 
 \end_layout
 
-\end_deeper
-\begin_layout Itemize
-Il primo test di detection consiste nel rilevare tutti i tentativi di connession
-e ssh.
- Per fare questo bisogna aggiungere una regola nel file /etc/snort/rules/local.ru
-les.
- La regola è: 
+\begin_layout Standard
+La regola è: 
 \end_layout
 
-\begin_deeper
 \begin_layout Itemize
 
 \series bold
@@ -508,10 +514,38 @@ alert tcp any any -> $HOME_NET 22 (msg:"ssh test"; sid:10000001; rev:001;)
  
 \end_layout
 
+\begin_deeper
+\begin_layout Itemize
+snort manda un alert per i pacchetti che hanno source-ip: 
+\series bold
+any,
+\series default
+ source-port: 
+\series bold
+any, 
+\series default
+destination-ip: 
+\series bold
+10.222.111.2
+\series default
+ (memorizzato nella variabile 
+\series bold
+$HOME_NET),
+\series default
+ destination-port: 
+\series bold
+22
+\end_layout
+
+\end_deeper
 \begin_layout Standard
-Se un host esterno cerca di connettersi tramite ssh, il tentativo viene
- rilevato da snort.
- È possibile vedere i log digitando il comando:
+Se un host esterno cerca di connettersi tramite la porta 22, il tentativo
+ viene rilevato da snort.
+\end_layout
+
+\begin_layout Standard
+È possibile far partire un'istanza di snort e far stampare a schermo i log
+ digitando il comando: 
 \end_layout
 
 \begin_layout Itemize
@@ -526,6 +560,15 @@ Nota: ens160 è l'interfaccia che corrisponde all'ip 10.222.111.2
 \end_layout
 
 \end_deeper
-\end_deeper
+\begin_layout Standard
+Grazie ai log di snort e ai log di ssh su 
+\series bold
+/var/log/secure
+\series default
+, è possibile osservare come ogni secondo ci siano tentativi di login su
+ ssh (ovviamente falliti) dovuti a script automatizzati.
+ Per eliminare il problema, ssh è stato reso disponibile sulla porta 65022.
+\end_layout
+
 \end_body
 \end_document
