@@ -22,3 +22,5 @@ https://arashmilani.com/post?id=53
 https://linuxize.com/post/how-to-set-up-an-openvpn-server-on-centos-7/
 
 guida snort 2.9x https://upcloud.com/community/tutorials/installing-snort-on-centos/
+
+daq yum localinstall https://download-ib01.fedoraproject.org/pub/epel/7/x86_64/Packages/d/daq-2.0.6-1.el7.x86_64.rpm
