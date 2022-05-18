@@ -31,36 +31,29 @@ iptables -A ed -p tcp --dport 8443 -m state --state NEW,ESTABLISHED -j ACCEPT
 iptables -A de -p tcp --sport 8443 -m state --state ESTABLISHED     -j ACCEPT
 
 # Forward SAMBA from Internet to DMZ
-iptables -A ed -p tcp --dport 139 -m state --state NEW,ESTABLISHED -j ACCEPT
-iptables -A de -p tcp --sport 139 -m state --state ESTABLISHED     -j ACCEPT
+iptables -A ed -p udp --dport 137     -j ACCEPT
+iptables -A de -p udp --sport 137     -j ACCEPT
+
+iptables -A ed -p udp --dport 138     -j ACCEPT
+iptables -A de -p udp --sport 138     -j ACCEPT
+
+iptables -A ed -p tcp --dport 139     -j ACCEPT
+iptables -A de -p tcp --sport 139     -j ACCEPT
 
 # Forward SAMBA from Internet to DMZ
-iptables -A ed -p tcp --dport 445 -m state --state NEW,ESTABLISHED -j ACCEPT
-iptables -A de -p tcp --sport 445 -m state --state ESTABLISHED     -j ACCEPT
-
-# Forward SSH from Internet to DMZ
-iptables -A ed -p tcp --dport 22 -m state --state NEW,ESTABLISHED -j ACCEPT
-iptables -A de -p tcp --sport 22 -m state --state ESTABLISHED     -j ACCEPT
+iptables -A ed -p tcp --dport 445     -j ACCEPT
+iptables -A de -p tcp --sport 445     -j ACCEPT
 
 # Forward SSH from Internet to DMZ
 iptables -A ed -p tcp --dport 22 -m state --state NEW,ESTABLISHED -j ACCEPT
 iptables -A de -p tcp --sport 22 -m state --state ESTABLISHED     -j ACCEPT
 
 # NTP client
-iptables -A de -p udp --dport 123 -o $Iexternal -m state --state NEW,ESTABLISHED -j ACCEPT
-iptables -A ed -p udp --sport 123 -i $Iexternal -m state --state ESTABLISHED     -j ACCEPT
+iptables -A de -p udp --dport 123 -m state --state NEW,ESTABLISHED -j ACCEPT
+iptables -A ed -p udp --sport 123 -m state --state ESTABLISHED     -j ACCEPT
 
 iptables -A ed -p icmp  -j ACCEPT
 iptables -A de -p icmp  -j ACCEPT
 # ----------- ---------------- ----------- #
 
-
-# ----------- ---------------- ----------- #
 echo "Bytewise and DMZ... Done."
-# Forward SSH from bytewise to DMZ
-iptables -A bd -p tcp --dport 22 -m state --state NEW,ESTABLISHED -j ACCEPT
-iptables -A db -p tcp --sport 22 -m state --state ESTABLISHED     -j ACCEPT
-
-iptables -A bd -p icmp  -j ACCEPT
-iptables -A db -p icmp  -j ACCEPT
-# ----------- ---------------- ----------- #

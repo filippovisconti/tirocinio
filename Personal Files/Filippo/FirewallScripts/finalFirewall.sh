@@ -4,8 +4,10 @@
 /root/firewallScripts/flush_firewall.sh
 
 #---------- Enable routing ----------#
-echo 1 > /proc/sys/net/ipv4/ip_forward NOT NEEDED FOR NOW
+echo 1 > /proc/sys/net/ipv4/ip_forward
 
+
+#---------- Variabili ---------------#
 Ibytewise=ens192
 Iinternal=ens224
 Iexternal=ens160
@@ -42,17 +44,17 @@ iptables -t nat -A PREROUTING -i $Iexternal -s $EXT -d $FWexternalIP -p tcp --dp
 
 iptables -t nat -A PREROUTING -i $Iexternal -s $EXT -d $FWexternalIP -p tcp --dport 64022 -j DNAT --to $DMZCLIENT:22
 
-iptables -t nat -A PREROUTING -i $Ibytewise -s $EXT -d $FWbytewiseIP -p tcp --dport 64022 -j DNAT --to $DMZCLIENT:22
+#iptables -t nat -A PREROUTING -i $Ibytewise -s $EXT -d $FWbytewiseIP -p tcp --dport 64022 -j DNAT --to $DMZCLIENT:22
 
 echo "EXT -> DMZ... Done."
 iptables -A FORWARD -i $Iexternal -o $Iinternal -s $EXT -d $DMZLAN -j ed
 # -- DMZ -> EXT
 iptables -A FORWARD -i $Iinternal -o $Iexternal -s $DMZLAN -d $EXT -j de
 
-echo "BYTEWISE -> DMZ... Done."
-iptables -A FORWARD -i $Ibytewise -o $Iinternal -s $BYTEWISELAN -d $DMZLAN -j bd
+#echo "BYTEWISE -> DMZ... Done."
+#iptables -A FORWARD -i $Ibytewise -o $Iinternal -s $BYTEWISELAN -d $DMZLAN -j bd
 # -- DMZ -> EXT
-iptables -A FORWARD -i $Iinternal -o $Ibytewise -s $DMZLAN -d $BYTEWISELAN -j db
+#iptables -A FORWARD -i $Iinternal -o $Ibytewise -s $DMZLAN -d $BYTEWISELAN -j db
 
 #----------- SSH --------------------#
 iptables -A INPUT  -p tcp --dport 65022 -i $Iexternal -m state --state NEW,ESTABLISHED -j ACCEPT
@@ -68,6 +70,6 @@ iptables -A OUTPUT -p tcp --sport 65022 -o $Ibytewise -m state --state ESTABLISH
 /root/firewallScripts/firewallIO.sh
 
 iptables -t nat -A POSTROUTING -o $Iexternal  -s $DMZLAN      -j MASQUERADE
-iptables -t nat -A POSTROUTING -o $Ibytewise  -s $BYTEWISELAN -j MASQUERADE
+#iptables -t nat -A POSTROUTING -o $Ibytewise  -s $BYTEWISELAN -j MASQUERADE
 
 service iptables save
