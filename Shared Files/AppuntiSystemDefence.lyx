@@ -174,22 +174,23 @@ Un firewall con tre schede di rete:
 
 \begin_layout Itemize
 la 10.11.13.121 che si affaccia sulla rete bytewise con default gateway 10.11.12.21.
+ L'interfaccia è ens192.
 \end_layout
 
 \begin_layout Itemize
 la 10.222.111.2 che si affaccia sulla rete telecom con default gateway 10.222.111.1.
  Questo è il router che viene usato dal firewall quando l'host da raggiungere
  non è direttamente connesso.
- 
+ L'interfaccia è ens160.
 \end_layout
 
 \begin_layout Itemize
-la 50.50.50.1 sulla lan 50.50.50.0/24 (*sul disegno compare l'IP sbagliato)
+la 50.50.50.1 sulla lan 50.50.50.0/24 (*sul disegno compare l'IP sbagliato).
+ L'interfaccia è ens224.
 \end_layout
 
 \begin_layout Itemize
-si osserva che la VMware è visibile dall'esterno tramite l'IP pubblico 79.61.138.20
-4
+la vm è visibile dall'esterno tramite l'IP pubblico 79.61.138.204
 \end_layout
 
 \begin_layout Standard
@@ -656,6 +657,14 @@ Guida:
 \begin_layout Standard
 https://support.redborder.com/hc/en-us/articles/209057125-Snort-on-CentOS-7-with-r
 edBorder-Live-
+\end_layout
+
+\begin_layout Standard
+Informazioni su DAQ, pcap:
+\end_layout
+
+\begin_layout Standard
+http://manual-snort-org.s3-website-us-east-1.amazonaws.com/node7.html
 \end_layout
 
 \begin_layout Subsection
