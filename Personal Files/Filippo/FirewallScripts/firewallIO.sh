@@ -17,6 +17,11 @@ iptables -A OUTPUT -p tcp --dport 80  -o $Iexternal -m state --state NEW,ESTABLI
 iptables -A INPUT  -p tcp --sport 443 -i $Iexternal -m state --state ESTABLISHED     -j ACCEPT
 iptables -A OUTPUT -p tcp --dport 443 -o $Iexternal -m state --state NEW,ESTABLISHED -j ACCEPT
 
+# NTP client
+iptables -A INPUT  -p udp --sport 123 -i $Iexternal -m state --state ESTABLISHED     -j ACCEPT
+iptables -A OUTPUT -p udp --dport 123 -o $Iexternal -m state --state NEW,ESTABLISHED -j ACCEPT
+
+
 # ICMP on every interface
 iptables -A INPUT  -p icmp -j ACCEPT
 iptables -A OUTPUT -p icmp -j ACCEPT
