@@ -132,9 +132,36 @@ La rete ha questa struttura:
 \end_layout
 
 \begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
 \begin_inset Graphics
 	filename graphics latex/NetworkDiagram.drawio.pdf
 	scale 30
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+La rete
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
 
 \end_inset
 
@@ -157,7 +184,7 @@ la 10.222.111.2 che si affaccia sulla rete telecom con default gateway 10.222.11
 \end_layout
 
 \begin_layout Itemize
-la 50.50.50.2 sulla lan 50.50.50.0/24
+la 50.50.50.1 sulla lan 50.50.50.0/24 (*sul disegno compare l'IP sbagliat)
 \end_layout
 
 \begin_layout Itemize
@@ -411,10 +438,6 @@ TCP porte 139, 445
 \end_layout
 
 \begin_layout Itemize
-UDP porta 137
-\end_layout
-
-\begin_layout Itemize
 utente: josh
 \end_layout
 
@@ -568,6 +591,130 @@ Grazie ai log di snort e ai log di ssh su
 , è possibile osservare come ogni secondo ci siano tentativi di login su
  ssh (ovviamente falliti) dovuti a script automatizzati.
  Per eliminare il problema, ssh è stato reso disponibile sulla porta 65022.
+\end_layout
+
+\begin_layout Section
+TENTATIVO 2
+\end_layout
+
+\begin_layout Standard
+Il precedente tentativo è andato a mignotte senza nessun motivo apparente,
+ quindi si è reso necessario procedere con una seconda installazione.
+\end_layout
+
+\begin_layout Subsection
+INSTALLAZIONE E CONFIGURAZIONE 
+\end_layout
+
+\begin_layout Standard
+Guida: 
+\end_layout
+
+\begin_layout Standard
+https://support.redborder.com/hc/en-us/articles/209057125-Snort-on-CentOS-7-with-r
+edBorder-Live-
+\end_layout
+
+\begin_layout Standard
+È necessario l'accesso alle repositories: 
+\end_layout
+
+\begin_layout Itemize
+EPEL 
+\end_layout
+
+\begin_layout Itemize
+cert-forensics-tools
+\end_layout
+
+\begin_layout Standard
+Snort è stato installato tramite yum: 
+\end_layout
+
+\begin_layout Itemize
+yum install snort.x86_64
+\end_layout
+
+\begin_layout Standard
+Per configurare Snort è stato modificato il file /etc/snort/snort.conf
+\end_layout
+
+\begin_layout Standard
+In questo modo è stato possibile attivare il demone snortd.
+\end_layout
+
+\begin_layout Standard
+È stato installato PulledPork package.
+\end_layout
+
+\begin_layout Subsection
+CREAZIONE DI WEB SERVER NELLA DMZ
+\end_layout
+
+\begin_layout Standard
+È stato creato un web server nella DMZ.
+ Questo rende necessario una modifica del firewall.
+\end_layout
+
+\begin_layout Standard
+Sul web server sono installati i servizi:
+\end_layout
+
+\begin_layout Itemize
+Httpd 2.4.6
+\end_layout
+
+\begin_layout Itemize
+Tomcat 7.0.76 
+\end_layout
+
+\begin_layout Itemize
+MariaDB
+\end_layout
+
+\begin_layout Itemize
+Samba 
+\end_layout
+
+\begin_layout Subsection
+KALI E OPENVAS 
+\end_layout
+
+\begin_layout Standard
+È stata creata una macchina virtuale kali su cui è stato installato openvas.
+ Openvas è un framework che include servizi e strumenti per la scansione
+ e la gestione completa delle vulnerabilità (vulnerability assessment).
+ Lo scan ha segnalato alta vulnerabilità (High: https): 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename graphics latex/photo1652708393.jpeg
+	scale 40
+
+\end_inset
+
+
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Vulnerabilities
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \end_body
