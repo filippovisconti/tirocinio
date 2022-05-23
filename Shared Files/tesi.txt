@@ -1,0 +1,5 @@
+firewall    francesco
+vpn         filippo
+snort       allegra 
+crowdsec    simone 
+pentesting  davide
