@@ -863,6 +863,43 @@ CROWDSEC
 \end_layout
 
 \begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename graphics latex/crowdsec.png
+	scale 30
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+how does crowdsec work
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
 Per configurare crowdsec è stato disabilitato snort e fatto il flush del
  firewall.
 \end_layout
@@ -877,6 +914,182 @@ Guida per installare:
 
 \begin_layout Standard
 https://docs.crowdsec.net/docs/getting_started/install_crowdsec/
+\end_layout
+
+\begin_layout Standard
+per vedere la configurazione del firewall bouncer bisogna eseguire il comando:
+\end_layout
+
+\begin_layout Standard
+cat /etc/crowdsec/bouncers/crowdsec-firewall-bouncer.yaml
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename graphics latex/Screen Shot 2022-05-23 at 11.35.50.png
+	scale 50
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+firewall bounce configuration
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+TOMCAT BUCATO COME LA MERDA 
+\end_layout
+
+\begin_layout Standard
+Probabilmente un mining virus occupava il 22% della cpu circa, 
+\end_layout
+
+\begin_layout Itemize
+è stato usato il comando ps faxw per cercare il processo da uccidere
+\end_layout
+
+\begin_layout Itemize
+il processo rimandava a una libreria di tomcat
+\end_layout
+
+\begin_layout Itemize
+è stato ucciso il processo 
+\end_layout
+
+\begin_layout Itemize
+dibalitiato il servizio tomcat
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename graphics latex/Screen Shot 2022-05-23 at 11.57.42.png
+	scale 50
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+conncection attempts
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float algorithm
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename graphics latex/Screen Shot 2022-05-23 at 12.07.19.png
+	scale 40
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+cat /var/log/messages | grep tomcat
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename graphics latex/tomcatbucato.png
+	scale 50
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+cat /var/log/messages | grep deploy
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \end_body
