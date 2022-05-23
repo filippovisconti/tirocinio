@@ -1092,5 +1092,89 @@ cat /var/log/messages | grep deploy
 
 \end_layout
 
+\begin_layout Subsection
+FILIPPO BLOCCA L'IP DI DAVIDE CON CROWDSEC
+\end_layout
+
+\begin_layout Standard
+Davide è entrato in ssh con ip 62.19.296.203.
+ È stato possibile rilevare la sessione di root tramite il comando w e bloccare
+ l'ip aggiungendolo alla decisions list di crowdsec
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename graphics latex/filippobloccadavide.PNG
+	scale 50
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+root sessions
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename graphics latex/filippobloccadavide2.PNG
+	scale 32
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+decision list
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
 \end_body
 \end_document
