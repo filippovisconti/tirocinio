@@ -638,7 +638,57 @@ yum install snort.x86_64
 \end_layout
 
 \begin_layout Standard
-Per configurare Snort è stato modificato il file /etc/snort/snort.conf
+Per configurare Snort:
+\end_layout
+
+\begin_layout Standard
+Il demone snortd legge /etc/sysconfig/snort:
+\end_layout
+
+\begin_layout Itemize
+bisogna impostare l'interfaccia (ens160)
+\end_layout
+
+\begin_layout Itemize
+bisogna specificare user (snort) e group (snort)
+\end_layout
+
+\begin_layout Itemize
+binary log attivati
+\end_layout
+
+\begin_layout Standard
+È stato modificato il file /etc/snort/snort.conf
+\end_layout
+
+\begin_layout Itemize
+bisogna specificare l'ip address che va protetto
+\end_layout
+
+\begin_layout Itemize
+bisogna specificare il path delle rules 
+\end_layout
+
+\begin_layout Itemize
+sfrutta i log dell'API pcap specializzata a catturare il traffico internet
+ 
+\end_layout
+
+\begin_layout Itemize
+sfrutta i log unified2 che si occupano di packet logging, alert logging,
+ true unified logging
+\end_layout
+
+\begin_layout Standard
+Per leggere i log:
+\end_layout
+
+\begin_layout Itemize
+snort -r merged.log
+\end_layout
+
+\begin_layout Itemize
+comando: u2spewfoo 
 \end_layout
 
 \begin_layout Standard
@@ -912,8 +962,12 @@ La versione installata è 1.3.4
 Guida per installare:
 \end_layout
 
-\begin_layout Standard
+\begin_layout Itemize
 https://docs.crowdsec.net/docs/getting_started/install_crowdsec/
+\end_layout
+
+\begin_layout Itemize
+https://opensource.com/article/21/1/crowdsec-rest-api
 \end_layout
 
 \begin_layout Standard
