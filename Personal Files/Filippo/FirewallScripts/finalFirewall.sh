@@ -69,6 +69,8 @@ iptables -A OUTPUT -p tcp --sport 65022 -o $Ibytewise -m state --state ESTABLISH
 #----------- I/0 FILE ---------------#
 /root/firewallScripts/firewallIO.sh
 
+/root/firewallScripts/firewallSnort.sh
+
 iptables -t nat -A POSTROUTING -o $Iexternal  -s $DMZLAN      -j MASQUERADE
 #iptables -t nat -A POSTROUTING -o $Ibytewise  -s $BYTEWISELAN -j MASQUERADE
 
