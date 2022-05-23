@@ -863,11 +863,6 @@ CROWDSEC
 \end_layout
 
 \begin_layout Standard
-Per configurare crowdsec è stato disabilitato snort e fatto il flush del
- firewall.
-\end_layout
-
-\begin_layout Standard
 La versione installata è 1.3.4
 \end_layout
 
