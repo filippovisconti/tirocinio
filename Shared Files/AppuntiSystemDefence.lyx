@@ -174,22 +174,23 @@ Un firewall con tre schede di rete:
 
 \begin_layout Itemize
 la 10.11.13.121 che si affaccia sulla rete bytewise con default gateway 10.11.12.21.
+ L'interfaccia è ens192.
 \end_layout
 
 \begin_layout Itemize
 la 10.222.111.2 che si affaccia sulla rete telecom con default gateway 10.222.111.1.
  Questo è il router che viene usato dal firewall quando l'host da raggiungere
  non è direttamente connesso.
- 
+ L'interfaccia è ens160.
 \end_layout
 
 \begin_layout Itemize
-la 50.50.50.1 sulla lan 50.50.50.0/24 (*sul disegno compare l'IP sbagliat)
+la 50.50.50.1 sulla lan 50.50.50.0/24 (*sul disegno compare l'IP sbagliato).
+ L'interfaccia è ens224.
 \end_layout
 
 \begin_layout Itemize
-si osserva che la VMware è visibile dall'esterno tramite l'IP pubblico 79.61.138.20
-4
+la vm è visibile dall'esterno tramite l'IP pubblico 79.61.138.204
 \end_layout
 
 \begin_layout Standard
@@ -214,6 +215,10 @@ Le risorse assegnate alla vm sono:
 
 \begin_layout Itemize
 250 GB hdd 
+\end_layout
+
+\begin_layout Subsection
+FIREWALL
 \end_layout
 
 \begin_layout Standard
@@ -243,6 +248,10 @@ status open
 \end_layout
 
 \begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
 \align left
 
 iptables -F #flush delle catene di forward e input output
@@ -261,9 +270,13 @@ iptables -X #delete catene di forward
 \end_layout
 
 \begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
 \align left
 
-# politica di accept
+# politica 
 \end_layout
 
 \begin_layout Plain Layout
@@ -293,7 +306,7 @@ iptables -P FORWARD ACCPT
 \begin_inset Caption Standard
 
 \begin_layout Plain Layout
-file di flush in /root/fwdir/flush
+vi /root/fwdir/flush
 \end_layout
 
 \end_inset
@@ -325,6 +338,10 @@ status open
 
 \begin_layout Plain Layout
 
+\end_layout
+
+\begin_layout Plain Layout
+
 #---------- FLUSH FIREWALL ----------# 
 \end_layout
 
@@ -340,12 +357,11 @@ echo 1 > /proc/sys/net/ipv4/ip_forward
 
 \begin_layout Plain Layout
 
-#---POLICY---# 
 \end_layout
 
 \begin_layout Plain Layout
 
-# politica di drop
+#----------POLICY----------# 
 \end_layout
 
 \begin_layout Plain Layout
@@ -365,22 +381,30 @@ iptables -P FORWARD DROP
 
 \begin_layout Plain Layout
 
-#----------- FORWARD FILE -----------#
 \end_layout
 
 \begin_layout Plain Layout
 
-#/root/myfirewalldir/myfirewallForward
+#---------- FORWARD FILE----------#
 \end_layout
 
 \begin_layout Plain Layout
 
-#----------- I/0 FILE ---------------#
+/root/myfirewalldir/myfirewallForward
 \end_layout
 
 \begin_layout Plain Layout
 
-#/root/myfirewalldir/myfirewall_IO
+\end_layout
+
+\begin_layout Plain Layout
+
+#---------- I/0 FILE ----------#
+\end_layout
+
+\begin_layout Plain Layout
+
+/root/myfirewalldir/myfirewall_IO
 \end_layout
 
 \begin_layout Plain Layout
@@ -397,7 +421,7 @@ service iptables save
 \begin_inset Caption Standard
 
 \begin_layout Plain Layout
-regole iptables in /root/fwdir/fw
+vi /root/fwdir/fw
 \end_layout
 
 \end_inset
@@ -407,6 +431,20 @@ regole iptables in /root/fwdir/fw
 
 \end_inset
 
+
+\end_layout
+
+\begin_layout Standard
+Questo file esegue prima il flush, poi i file in cui sono memorizzate le
+ regole di forward e di input output.
+ I file sono visibili su github nel folder personale di Filippo.
+\end_layout
+
+\begin_layout Subsection
+SERVIZI ATTIVI SULLA MACCHINA
+\end_layout
+
+\begin_layout Standard
 I servizi attivi sulla macchina sono:
 \end_layout
 
@@ -486,28 +524,13 @@ daq-2.0.7.tar.gz (data acquisition library)
 \end_layout
 
 \begin_layout Standard
-Per configurarlo bisogna modificare il file 
-\series bold
-/etc/snort/snort.conf.
- 
-\end_layout
-
-\begin_layout Standard
 La guida è disponibile tramite il link:
 \series bold
  
 \end_layout
 
 \begin_layout Standard
-
-\series bold
 https://upcloud.com/community/tutorials/installing-snort-on-centos/
-\end_layout
-
-\begin_layout Standard
-L'indirizzo da proteggere è quello della scheda che si affaccia sulla rete
- esterna e che corrisponde all'ip 10.222.111.2.
- 
 \end_layout
 
 \begin_layout Subsection
@@ -607,27 +630,6 @@ INSTALLAZIONE E CONFIGURAZIONE
 \end_layout
 
 \begin_layout Standard
-Guida: 
-\end_layout
-
-\begin_layout Standard
-https://support.redborder.com/hc/en-us/articles/209057125-Snort-on-CentOS-7-with-r
-edBorder-Live-
-\end_layout
-
-\begin_layout Standard
-È necessario l'accesso alle repositories: 
-\end_layout
-
-\begin_layout Itemize
-EPEL 
-\end_layout
-
-\begin_layout Itemize
-cert-forensics-tools
-\end_layout
-
-\begin_layout Standard
 Snort è stato installato tramite yum: 
 \end_layout
 
@@ -644,7 +646,25 @@ In questo modo è stato possibile attivare il demone snortd.
 \end_layout
 
 \begin_layout Standard
-È stato installato PulledPork package.
+È stato installato PulledPork package che permette di avere accesso alle
+ community rules offerte da snort.
+\end_layout
+
+\begin_layout Standard
+Guida: 
+\end_layout
+
+\begin_layout Standard
+https://support.redborder.com/hc/en-us/articles/209057125-Snort-on-CentOS-7-with-r
+edBorder-Live-
+\end_layout
+
+\begin_layout Standard
+Informazioni su DAQ, pcap:
+\end_layout
+
+\begin_layout Standard
+http://manual-snort-org.s3-website-us-east-1.amazonaws.com/node7.html
 \end_layout
 
 \begin_layout Subsection
@@ -677,14 +697,43 @@ Samba
 \end_layout
 
 \begin_layout Subsection
-KALI E OPENVAS 
+UN CINESE IN CONNESSIONE CON SAMBA 
+\end_layout
+
+\begin_layout Standard
+Dopo l'installazione e la configurazione di Samba è stato digitato il comando
+ 
+\series bold
+netstat -tulnap
+\series default
+ ed è stato visto che un IP address sconosciuto (proveniente dalla Cina)
+ è riuscito ad instaurare una connessione con Samba non autorizzata.
+ Questo perchè la versiona installata è vecchia e vulnerabile.
+\end_layout
+
+\begin_layout Subsection
+INSTALLAZIONE KALI E OPENVAS 
 \end_layout
 
 \begin_layout Standard
 È stata creata una macchina virtuale kali su cui è stato installato openvas.
  Openvas è un framework che include servizi e strumenti per la scansione
  e la gestione completa delle vulnerabilità (vulnerability assessment).
- Lo scan ha segnalato alta vulnerabilità (High: https): 
+ 
+\end_layout
+
+\begin_layout Standard
+Openvas è in grado di fornire un report delle vulnerabilità dell'host, e
+ un primo scan ha segnalato http come il servizio a maggiore rischio (vulnerabil
+ità SSL-TLS): 
+\end_layout
+
+\begin_layout Standard
+Una possibile guida per installare Openvas:
+\end_layout
+
+\begin_layout Standard
+https://www.geeksforgeeks.org/installing-openvas-on-kali-linux/
 \end_layout
 
 \begin_layout Standard
@@ -696,7 +745,7 @@ status open
 \begin_layout Plain Layout
 \begin_inset Graphics
 	filename graphics latex/photo1652708393.jpeg
-	scale 40
+	scale 30
 
 \end_inset
 
@@ -709,6 +758,332 @@ Vulnerabilities
 
 \end_inset
 
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+METASPLOIT E ATTACCO DOS
+\end_layout
+
+\begin_layout Standard
+Metasploit è un framework open source per lo sviluppo e l'esecuzione di
+ exploits ai danni di un host remoto.
+ Sulla vm Kali è possibile accedere alla console tramite il comando 
+\series bold
+msfconsole
+\series default
+.
+\end_layout
+
+\begin_layout Standard
+Cercando la vulnerabilità rilevata da openVAS con il comando 
+\series bold
+search ssl tls 
+\series default
+è possibile trovare uno script che effettua un attacco dos ai danni di un
+ host.
+ 
+\end_layout
+
+\begin_layout Standard
+Una possibile guida per i comandi base di metasploit:
+\end_layout
+
+\begin_layout Standard
+https://www.makeuseof.com/beginners-guide-metasploit-kali-linux/
+\end_layout
+
+\begin_layout Subsection
+IPS
+\end_layout
+
+\begin_layout Standard
+Snort 
+\series bold
+inline mode
+\series default
+ permette di proteggere il sistema.
+ Quando viene generato del traffico:
+\end_layout
+
+\begin_layout Itemize
+legge il contenuto di pacchetti memorizzati in una coda 
+\end_layout
+
+\begin_layout Itemize
+legge una serie di regole iptables e in base ad esse decide se lasciarli
+ passare o meno.
+\end_layout
+
+\begin_layout Standard
+La guida usata è: 
+\end_layout
+
+\begin_layout Standard
+http://sublimerobots.com/2017/06/snort-ips-with-nfq-routing-on-ubuntu/
+\end_layout
+
+\begin_layout Standard
+Questa guida è stata usata ma non funzionava...
+ in the end è stato sfruttato FWsnort invece di nfqueue 
+\end_layout
+
+\begin_layout Subsection
+FILIPPO LAVORA SU IPS CON FWSNORT
+\end_layout
+
+\begin_layout Itemize
+Snort ha le community rules,
+\end_layout
+
+\begin_layout Itemize
+FWsnort è un progetto opensource che permette di tradurre le regole di snort
+ in iptables eseguendo uno script,
+\end_layout
+
+\begin_layout Standard
+Tra le guide usate:
+\end_layout
+
+\begin_layout Enumerate
+https://www.cipherdyne.org/fwsnort/
+\end_layout
+
+\begin_layout Enumerate
+https://linux.die.net/man/8/fwsnort
+\end_layout
+
+\begin_layout Subsection
+CROWDSEC
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename graphics latex/crowdsec.png
+	scale 30
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+how does crowdsec work
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Per configurare crowdsec è stato disabilitato snort e fatto il flush del
+ firewall.
+\end_layout
+
+\begin_layout Standard
+La versione installata è 1.3.4
+\end_layout
+
+\begin_layout Standard
+Guida per installare:
+\end_layout
+
+\begin_layout Standard
+https://docs.crowdsec.net/docs/getting_started/install_crowdsec/
+\end_layout
+
+\begin_layout Standard
+per vedere la configurazione del firewall bouncer bisogna eseguire il comando:
+\end_layout
+
+\begin_layout Standard
+cat /etc/crowdsec/bouncers/crowdsec-firewall-bouncer.yaml
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename graphics latex/Screen Shot 2022-05-23 at 11.35.50.png
+	scale 50
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+firewall bounce configuration
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+TOMCAT BUCATO COME LA MERDA 
+\end_layout
+
+\begin_layout Standard
+Probabilmente un mining virus occupava il 22% della cpu circa, 
+\end_layout
+
+\begin_layout Itemize
+è stato usato il comando ps faxw per cercare il processo da uccidere
+\end_layout
+
+\begin_layout Itemize
+il processo rimandava a una libreria di tomcat
+\end_layout
+
+\begin_layout Itemize
+è stato ucciso il processo 
+\end_layout
+
+\begin_layout Itemize
+dibalitiato il servizio tomcat
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename graphics latex/Screen Shot 2022-05-23 at 11.57.42.png
+	scale 50
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+conncection attempts
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float algorithm
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename graphics latex/Screen Shot 2022-05-23 at 12.07.19.png
+	scale 40
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+cat /var/log/messages | grep tomcat
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename graphics latex/tomcatbucato.png
+	scale 50
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+cat /var/log/messages | grep deploy
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
 
 \end_layout
 
