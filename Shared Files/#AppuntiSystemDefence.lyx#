@@ -863,6 +863,11 @@ CROWDSEC
 \end_layout
 
 \begin_layout Standard
+Per configurare crowdsec è stato disabilitato snort e fatto il flush del
+ firewall.
+\end_layout
+
+\begin_layout Standard
 La versione installata è 1.3.4
 \end_layout
 
@@ -872,6 +877,51 @@ Guida per installare:
 
 \begin_layout Standard
 https://docs.crowdsec.net/docs/getting_started/install_crowdsec/
+\end_layout
+
+\begin_layout Standard
+per vedere la configurazione del firewall bouncer bisogna eseguire il comando:
+\end_layout
+
+\begin_layout Standard
+cat /etc/crowdsec/bouncers/crowdsec-firewall-bouncer.yaml
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename graphics latex/Screen Shot 2022-05-23 at 11.35.50.png
+	scale 50
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+firewall bounce configuration
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \end_body
