@@ -970,8 +970,25 @@ https://docs.crowdsec.net/docs/getting_started/install_crowdsec/
 https://opensource.com/article/21/1/crowdsec-rest-api
 \end_layout
 
+\begin_layout Subsubsection
+moduli
+\end_layout
+
 \begin_layout Standard
-per vedere la configurazione del firewall bouncer bisogna eseguire il comando:
+È possibile installare dei moduli tramite il comando 
+\emph on
+cscli install ...
+\emph default
+, questi moduli vengono presi in input da un bouncer che genera regole iptables
+ dinamicamente per bloccare il traffico di alcuni ip.
+\end_layout
+
+\begin_layout Subsubsection
+bouncer
+\end_layout
+
+\begin_layout Standard
+Per vedere la configurazione del firewall bouncer bisogna eseguire il comando:
 \end_layout
 
 \begin_layout Standard
@@ -1067,17 +1084,13 @@ conncection attempts
 
 \end_layout
 
-\begin_layout Plain Layout
-
-\end_layout
-
 \end_inset
 
 
 \end_layout
 
 \begin_layout Standard
-\begin_inset Float algorithm
+\begin_inset Float figure
 wide false
 sideways false
 status open
@@ -1101,6 +1114,10 @@ cat /var/log/messages | grep tomcat
 
 \end_inset
 
+
+\end_layout
+
+\begin_layout Plain Layout
 
 \end_layout
 
