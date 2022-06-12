@@ -995,6 +995,15 @@ Per vedere la configurazione del firewall bouncer bisogna eseguire il comando:
 cat /etc/crowdsec/bouncers/crowdsec-firewall-bouncer.yaml
 \end_layout
 
+\begin_layout Subsubsection
+parsers
+\end_layout
+
+\begin_layout Standard
+I parsers permettono di leggere i log sui quali vanno ad agire le collezioni.
+ 
+\end_layout
+
 \begin_layout Standard
 \begin_inset Float figure
 wide false
@@ -1020,10 +1029,6 @@ firewall bounce configuration
 
 \end_inset
 
-
-\end_layout
-
-\begin_layout Plain Layout
 
 \end_layout
 
@@ -1170,7 +1175,7 @@ FILIPPO BLOCCA L'IP DI DAVIDE CON CROWDSEC
 \begin_layout Standard
 Davide è entrato in ssh con ip 62.19.296.203.
  È stato possibile rilevare la sessione di root tramite il comando w e bloccare
- l'ip aggiungendolo alla decisions list di crowdsec
+ l'ip aggiungendolo alla decisions list di crowdsec.
 \end_layout
 
 \begin_layout Standard
@@ -1198,10 +1203,6 @@ root sessions
 
 \end_inset
 
-
-\end_layout
-
-\begin_layout Plain Layout
 
 \end_layout
 
